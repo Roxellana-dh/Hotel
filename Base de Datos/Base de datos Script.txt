@@ -1,0 +1,53 @@
+CREATE TABLE Usuario (
+    id_usuario INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    contraseña VARCHAR(100) NOT NULL,
+    rol VARCHAR(20) CHECK (rol IN ('cliente','empleado','administrador'))
+);
+
+CREATE TABLE Cliente (
+    id_cliente INT PRIMARY KEY,
+    id_usuario INT UNIQUE,
+    telefono VARCHAR(20),
+    nacionalidad VARCHAR(50),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Empleado (
+    id_empleado INT PRIMARY KEY,
+    id_usuario INT UNIQUE,
+    cargo VARCHAR(50),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Habitacion (
+    id_habitacion INT PRIMARY KEY,
+    numero INT NOT NULL,
+    categoria VARCHAR(20) CHECK (categoria IN ('turista','premium')),
+    caracteristicas TEXT,
+    precio_diario DECIMAL(10,2) NOT NULL,
+    estado VARCHAR(20) CHECK (estado IN ('disponible','ocupada','mantenimiento'))
+);
+
+CREATE TABLE Reserva (
+    id_reserva INT PRIMARY KEY,
+    id_cliente INT,
+    id_habitacion INT,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    total DECIMAL(10,2),
+    estado VARCHAR(20) CHECK (estado IN ('activa','cancelada','finalizada')),
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+    FOREIGN KEY (id_habitacion) REFERENCES Habitacion(id_habitacion)
+);
+
+CREATE TABLE Pago (
+    id_pago INT PRIMARY KEY,
+    id_reserva INT UNIQUE,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE NOT NULL,
+    metodo VARCHAR(20),
+    estado VARCHAR(20) CHECK (estado IN ('pendiente','confirmado')),
+    FOREIGN KEY (id_reserva) REFERENCES Reserva(id_reserva)
+);
