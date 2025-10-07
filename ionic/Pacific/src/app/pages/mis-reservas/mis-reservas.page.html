@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis Reservas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let r of reservas">
+      <ion-label>
+        <h2>Reserva #{{ r.id }}</h2>
+        <p>Habitación ID: {{ r.habitacion_id }}</p>
+        <p>Cliente: {{ r.cliente }}</p>
+        <p>Desde: {{ r.fecha_inicio }} - Hasta: {{ r.fecha_fin }}</p>
+        <p>Total estimado: {{ getTotal(r) }}</p>
+        <p>Anticipo (30%): {{ getAnticipo(r) }}</p>
+        <p>Estado: {{ r.pagado ? 'Pagado' : 'Pendiente' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item *ngIf="reservas.length === 0">
+    <ion-label>No tienes reservas registradas.</ion-label>
+  </ion-item>
+</ion-content>

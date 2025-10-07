@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reserva Habitación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="habitacion">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Habitación {{ habitacion.numero }} - {{ habitacion.categoria }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ habitacion.descripcion }}</p>
+      <p><b>Precio por noche: ${{ habitacion.precio }}</b></p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item>
+    <ion-label>Fecha Inicio</ion-label>
+    <ion-datetime
+      display-format="YYYY-MM-DD"
+      [(ngModel)]="fechaInicio"
+      (ionChange)="calcular()"
+    ></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Fecha Fin</ion-label>
+    <ion-datetime
+      display-format="YYYY-MM-DD"
+      [(ngModel)]="fechaFin"
+      (ionChange)="calcular()"
+    ></ion-datetime>
+  </ion-item>
+
+  <ion-item *ngIf="total > 0">
+    <ion-label>Total: ${{ total }}</ion-label>
+  </ion-item>
+  <ion-item *ngIf="anticipo > 0">
+    <ion-label>Anticipo (30%): ${{ anticipo }}</ion-label>
+  </ion-item>
+
+  <ion-button expand="full" color="primary" (click)="confirmar()">
+    Confirmar Reserva
+  </ion-button>
+</ion-content>

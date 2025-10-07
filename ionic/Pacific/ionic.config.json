@@ -1,0 +1,7 @@
+{
+  "name": "Pacific",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

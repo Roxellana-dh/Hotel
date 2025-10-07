@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Catálogo de Habitaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let h of habitaciones">
+      <ion-label>
+        <h2>Habitación {{h.numero}} - {{h.categoria}}</h2>
+        <p>{{h.descripcion}}</p>
+        <p><b>${{h.precio}}</b> por noche</p>
+      </ion-label>
+      <ion-button slot="end" [routerLink]="['/reserva', h.id]">Reservar</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
